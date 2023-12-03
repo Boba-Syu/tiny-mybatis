@@ -1,5 +1,7 @@
 package cn.bobasyu.mybatis.binding;
 
+import cn.bobasyu.mybatis.session.SqlSession;
+
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -15,13 +17,13 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
     /**
      * 保存有dao接口中被代理方法的信息，如sql语句
      */
-    private Map<String, String> sqlSession;
+    private SqlSession sqlSession;
     /**
      * 被代理的dao接口
      */
     private final Class<T> mapperInterface;
 
-    public MapperProxy(Map<String, String> sqlSession, Class<T> mapperInterface) {
+    public MapperProxy(SqlSession sqlSession, Class<T> mapperInterface) {
         this.sqlSession = sqlSession;
         this.mapperInterface = mapperInterface;
     }
@@ -32,6 +34,6 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
             // 不需要代理
             return method.invoke(this, args);
         }
-        return "代理方法，" + sqlSession.get(mapperInterface.getName() + "." + method.getName());
+        return sqlSession.selectOne(method.getName(), args);
     }
 }
