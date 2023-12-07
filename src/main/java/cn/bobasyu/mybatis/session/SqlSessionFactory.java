@@ -9,5 +9,5 @@ public interface SqlSessionFactory {
      *
      * @return
      */
-    SqlSession openSqlsession();
+    SqlSession openSession();
 }
