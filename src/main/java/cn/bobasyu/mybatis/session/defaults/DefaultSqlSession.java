@@ -79,4 +79,9 @@ public class DefaultSqlSession implements SqlSession {
     public <T> T getMapper(Class<T> type) {
         return this.configuration.getMapper(type, this);
     }
+
+    @Override
+    public Configuration getConfiguration() {
+        return configuration;
+    }
 }
