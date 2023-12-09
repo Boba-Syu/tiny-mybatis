@@ -29,7 +29,7 @@ public class ApiTest {
         IUserMapper userMapper = sqlSession.getMapper(IUserMapper.class);
 
         // 3. 测试验证
-        User user = userMapper.queryUserInfoById(1L);
+        User user = userMapper.queryUserInfoById(1);
         logger.info("测试结果：{}", user);
     }
 
@@ -44,8 +44,8 @@ public class ApiTest {
         SqlSession sqlSession = new DefaultSqlSession(configuration);
 
         // 执行查询：默认是一个集合参数
-        Object[] req = {1L};
+        Object[] req = {1};
         Object res = sqlSession.selectOne("cn.bobasyu.mybatis.test.mapper.IUserMapper.queryUserInfoById", req);
-        logger.info("测试结果：{}", req);
+        logger.info("测试结果：{}", res);
     }
 }
